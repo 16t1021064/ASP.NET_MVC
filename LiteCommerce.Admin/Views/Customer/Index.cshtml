@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý khách hàng";
+}
+
+<!-- Form để tìm kiếm -->
+<div class="container-fluid">
+    <form method="get" action="~/Customer/Index" id="formSearchInput">
+        <div class="input-group">
+            <input name="searchValue" type="text" class="form-control" placeholder="Nhập tên cần tìm...">
+            <div class="input-group-btn">
+                <button class="btn btn-primary" type="submit">
+                    <i class="glyphicon glyphicon-search"></i> Tìm kiếm
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- Danh sách nhà cung cấp -->
+<div id="listCustomers" class="container-fluid"></div>
+@section scripts {
+    <script>
+        function getCustomers(page) {
+            var searchCondition = $("#formSearchInput").serializeArray();
+            searchCondition.push({name: "page", value: page });
+            $.ajax({
+                url: "/Customer/List",
+                type: "POST",
+                data: searchCondition,
+                success: function (data) {
+                    $("#listCustomers").empty();
+                    $("#listCustomers").html(data);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            getCustomers(1);
+            $("#formSearchInput").submit(function (e) {
+                e.preventDefault();
+                getCustomers(1);
+            });
+        });
+    </script>
+}
+

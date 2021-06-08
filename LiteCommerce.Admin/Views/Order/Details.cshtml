@@ -1,0 +1,68 @@
+﻿@model LiteCommerce.DomainModels.OrderEX
+@{
+    ViewBag.title = "Chi tiết đơn hàng";
+}
+<fieldset>
+    <legend>Thông tin đơn hàng</legend>
+    <div class="form-group">
+        <label class="control-label col-sm-2">Mã đơn:</label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.OrderID</p>
+        </div>
+
+        <label class="control-label col-sm-2">Khách hàng:</label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.CustomerID</p>
+        </div>
+        <label class="control-label col-sm-2">Nhân viên: </label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.EmployeeID</p>
+        </div>
+        <label class="control-label col-sm-2">Vận chuyển: </label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.ShipperID</p>
+        </div>
+        <label class="control-label col-sm-2">Ngày đặt: </label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.OrderTime</p>
+        </div>
+        <label class="control-label col-sm-2">Ngày duyệt: </label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.AcceptTime</p>
+        </div>
+        <label class="control-label col-sm-2">Ngày giao: </label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.ShippedTime</p>
+        </div>
+        <label class="control-label col-sm-2">Ngày nhận: </label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.FinishedTime</p>
+        </div>
+        <label class="control-label col-sm-2">Trạng thái: </label>
+        <div class="col-sm-10">
+            <p class="form-control-static">@Model.Status</p>
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Danh sách sản phẩm</legend>
+    
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Tên hàng</th>
+                    <th>Ảnh</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ListProducts)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td><img src="@item.Photo" /></td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+</fieldset>

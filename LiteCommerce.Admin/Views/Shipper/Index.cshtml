@@ -1,0 +1,44 @@
+﻿@model LiteCommerce.Admin.Models.ShipperPaginationQueryResult
+@{
+    ViewBag.Title = "Quản lý người giao hàng";
+}
+<!-- Form để tìm kiếm -->
+<div class="container-fluid">
+    <form method="get" action="~/Shipper/Index" id="formSearchInput">
+        <div class="input-group">
+            <input name="searchValue" type="text" class="form-control" placeholder="Nhập tên cần tìm...">
+            <div class="input-group-btn">
+                <button class="btn btn-primary" type="submit">
+                    <i class="glyphicon glyphicon-search"></i> Tìm kiếm
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- Danh sách nhà cung cấp -->
+<div id="listShippers" class="container-fluid"></div>
+@section scripts {
+    <script>
+        function getShippers(page) {
+            var searchCondition = $("#formSearchInput").serializeArray();
+            searchCondition.push({name: "page", value: page });
+            $.ajax({
+                url: "/Shipper/List",
+                type: "POST",
+                data: searchCondition,
+                success: function (data) {
+                    $("#listShippers").empty();
+                    $("#listShippers").html(data);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            getShippers(1);
+            $("#formSearchInput").submit(function (e) {
+                e.preventDefault();
+                getShippers(1);
+            });
+        });
+    </script>
+}
